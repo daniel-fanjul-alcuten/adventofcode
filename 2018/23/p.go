@@ -1,42 +1,36 @@
 package p
 
-type P struct {
-	x, y, z int
-}
+type P [3]int
 
 func (p P) Dist(q P) (d int) {
-	if p.x >= q.x {
-		d += p.x - q.x
-	} else {
-		d += q.x - p.x
-	}
-	if p.y >= q.y {
-		d += p.y - q.y
-	} else {
-		d += q.y - p.y
-	}
-	if p.z >= q.z {
-		d += p.z - q.z
-	} else {
-		d += q.z - p.z
+	for i := range p {
+		if b := p[i] - q[i]; b > 0 {
+			d += b
+		} else {
+			d -= b
+		}
 	}
 	return
 }
 
-type Bot struct {
+type B struct {
 	p P
 	r int
 }
 
-func P1(input []Bot) (p1 int) {
-	s := Bot{}
+func (b B) InRange(p P) bool {
+	return b.p.Dist(p) <= b.r
+}
+
+func P1(input []B) (p1 int) {
+	s := B{}
 	for _, b := range input {
 		if b.r > s.r {
 			s = b
 		}
 	}
 	for _, b := range input {
-		if s.p.Dist(b.p) <= s.r {
+		if s.InRange(b.p) {
 			p1++
 		}
 	}
