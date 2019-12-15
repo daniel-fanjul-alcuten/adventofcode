@@ -1,7 +1,6 @@
 package p
 
 import (
-	"log"
 	"strconv"
 	"strings"
 )
@@ -12,8 +11,7 @@ type Position struct {
 
 func P1(width, height int, inputs []string) (output int) {
 	screen := map[Position]bool{}
-	for in, input := range inputs {
-		log.Println(in, input)
+	for _, input := range inputs {
 		if strings.HasPrefix(input, "rect ") {
 			i := strings.Index(input, " ")
 			j := strings.Index(input, "x")
@@ -77,7 +75,6 @@ func P1(width, height int, inputs []string) (output int) {
 					s += "."
 				}
 			}
-			log.Println(s)
 		}
 	}
 	for y := 0; y < height; y++ {
